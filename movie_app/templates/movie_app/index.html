@@ -1,0 +1,22 @@
+{% extends 'movie_app/base.html' %}
+{% load my_filter %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h2>Список всех фильмов</h2>
+<h4>Статистика</h4>
+<p>Средний бюджет всех фильмов в рублях- {{ stat.budget__avg|my_round:-1 }}</p>
+<p>Максимальный рейтинг в баллах - {{ stat.rating__max}}</p>
+<ul>
+    {% for movie in movies %}
+    <li>Название - <a href="{% url 'show_one_movie' movie.slug %}">{{movie.name}}</a><br>Год выпуска - {{ movie.year }}
+        <br>Рейтинг - <a href="{{movie.get_url}}">{{movie.rating|default:'Неизвестно'}}</a> <br>Бюджет - {{ movie.budget }}
+    <br>Test - {{ movie.test|default:'Неизвестно' }}</li>
+    <hr>
+    {% endfor %}
+
+</ul>
+
+
+{% endblock %}
